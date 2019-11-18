@@ -3829,3 +3829,16 @@ sr_fd_event_process(int fd, sr_fd_event_t event, sr_fd_change_t **fd_change_set,
 
     return rc;
 }
+
+void
+sr_free_ctx (sr_subscription_ctx_t* subscription_ctx)
+{
+    for (unsigned int i=0; i<subscription_ctx->sm_subscription_cnt; i++)
+    {
+        void* tmp = subscription_ctx->sm_subscriptions[i]->private_ctx;
+        if (tmp != NULL)
+        {
+            free(subscription_ctx->sm_subscriptions[i]->private_ctx);
+        }
+    }
+}

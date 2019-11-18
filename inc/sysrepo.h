@@ -2010,6 +2010,8 @@ void sr_free_tree(sr_node_t *tree);
  */
 void sr_free_trees(sr_node_t *trees, size_t count);
 
+void sr_free_ctx (sr_subscription_ctx_t* subscription_ctx);
+
 /**@} cl */
 
 #ifdef __cplusplus
