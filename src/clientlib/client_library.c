@@ -278,6 +278,7 @@ cl_subscription_init(sr_session_ctx_t *session, Sr__SubscriptionType type, const
 
     CHECK_NULL_ARG4(session, sr_subscription_p, sm_subscription_p, msg_req_p);
 
+    printf("[echdwea_log] cl_subscription_init() private_ctx=%x\n", private_ctx);
     /* check if this is the first subscription, if yes, initialize subscription manager */
     pthread_mutex_lock(&global_lock);
     if (0 == subscriptions_cnt) {
@@ -333,6 +334,7 @@ cl_subscription_init(sr_session_ctx_t *session, Sr__SubscriptionType type, const
     /* save the new subscription in the array */
     sr_subscription->sm_subscriptions = tmp;
     sr_subscription->sm_subscriptions[sr_subscription->sm_subscription_cnt] = sm_subscription;
+    printf("[echdwea_log] %d: private_ctx=%x\n", sr_subscription->sm_subscription_cnt, sr_subscription->sm_subscriptions[sr_subscription->sm_subscription_cnt]->private_ctx);
     sr_subscription->sm_subscription_cnt += 1;
 
     *sr_subscription_p = sr_subscription;
@@ -2581,6 +2583,7 @@ sr_subtree_change_subscribe(sr_session_ctx_t *session, const char *xpath, sr_sub
     CHECK_NULL_ARG4(session, xpath, callback, subscription_p);
 
     cl_session_clear_errors(session);
+    printf("[echdwea_log] sr_subtree_change_subscribe() private_ctx=%x\n", private_ctx);
 
     /* extract module name from xpath */
     rc = sr_copy_first_ns(xpath, &module_name);
