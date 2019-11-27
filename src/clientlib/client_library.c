@@ -3843,8 +3843,9 @@ sr_free_ctx (sr_subscription_ctx_t* subscription_ctx)
         void* tmp = subscription_ctx->sm_subscriptions[i]->private_ctx;
         if (tmp != NULL)
         {
-            printf("freeing element no. %d\n");
-            free(tmp);
+            printf("address to be freed: %x\n", tmp);
+            //printf("freeing element no. %d\n");
+            //free(tmp);
         }
     }
 }
