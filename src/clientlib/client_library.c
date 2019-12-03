@@ -3834,7 +3834,7 @@ sr_fd_event_process(int fd, sr_fd_event_t event, sr_fd_change_t **fd_change_set,
 }
 
 void
-sr_free_ctx (sr_subscription_ctx_t* subscription_ctx, void (freeing_func*)(void*))
+sr_free_ctx (sr_subscription_ctx_t* subscription_ctx, void (*freeing_func)(void*))
 {
     printf("sr_free_ctx()\n");
     for (unsigned int i=0; i<subscription_ctx->sm_subscription_cnt; i++)
@@ -3845,7 +3845,7 @@ sr_free_ctx (sr_subscription_ctx_t* subscription_ctx, void (freeing_func*)(void*
         {
             printf("address to be freed: %x\n", tmp);
             printf("freeing element no. %d\n");
-            freeing_func(tmp);
+            (*freeing_func)(tmp);
             free(tmp);
         }
     }
