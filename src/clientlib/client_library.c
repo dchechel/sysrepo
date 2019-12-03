@@ -3834,19 +3834,21 @@ sr_fd_event_process(int fd, sr_fd_event_t event, sr_fd_change_t **fd_change_set,
 }
 
 void
-sr_free_ctx (sr_subscription_ctx_t* subscription_ctx, void (*freeing_func)(void*))
+sr_free_ctx (sr_subscription_ctx_t* subscription_ctx, const char* module_name, void (*freeing_func)(void*))
 {
     printf("sr_free_ctx()\n");
     for (unsigned int i=0; i<subscription_ctx->sm_subscription_cnt; i++)
     {
-        printf("iteration no. %d\n", i);
-        void* tmp = subscription_ctx->sm_subscriptions[i]->private_ctx;
-        if (tmp != NULL)
+        if (strcmp(module_name, subscription_ctx->sm_subscriptions[i]->module_name) == 0)
         {
-            printf("address to be freed: %x\n", tmp);
-            printf("freeing element no. %d\n");
-            (*freeing_func)(tmp);
-            //free(tmp);
+            printf("iteration no. %d\n", i);
+            void* tmp = subscription_ctx->sm_subscriptions[i]->private_ctx;
+            if (tmp != NULL)
+            {
+                printf("address to be freed: %x\n", tmp);
+                printf("freeing element no. %d\n");
+                (*freeing_func)(tmp);
+            }
         }
     }
 }
