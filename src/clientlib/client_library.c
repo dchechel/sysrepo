@@ -3846,7 +3846,7 @@ sr_free_ctx (sr_subscription_ctx_t* subscription_ctx, void (*freeing_func)(void*
             printf("address to be freed: %x\n", tmp);
             printf("freeing element no. %d\n");
             (*freeing_func)(tmp);
-            free(tmp);
+            //free(tmp);
         }
     }
 }
